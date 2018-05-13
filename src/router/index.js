@@ -8,6 +8,8 @@ import Icons from '@/components/Icons'
 import Maps from '@/components/Maps'
 import Notifications from '@/components/Notifications'
 
+import LoginPage from '@/components/Login'
+
 // GeneralViews
 import NotFound from '@/components/GeneralViews/NotFound.vue'
 
@@ -16,9 +18,22 @@ Vue.use(Router)
 export default new Router({
   routes: [
     {
+      path: '/login',
+      name: 'Login',
+      component: LoginPage
+    },
+    {
       path: '/',
       name: 'Dashboard',
-      component: Dashboard
+      component: Dashboard,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: '/hello',
+      name: 'Hello',
+      component: TableList
     },
     {
       path: '/person',
