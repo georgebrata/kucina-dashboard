@@ -30,6 +30,10 @@
       <a href="#" data-toggle="dropdown" class="dropdown-toggle"><i class="material-icons">person</i>
       <p>Profile</p></a>
     </li>
+    <li>
+      <a href="#" data-toggle="dropdown" class="dropdown-toggle"><i class="material-icons">logout</i>
+      <p>Logout</p></a>
+    </li>
   </ul>
 </template>
 <script>

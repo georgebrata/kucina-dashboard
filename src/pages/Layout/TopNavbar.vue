@@ -23,7 +23,7 @@
               <p class="hidden-lg hidden-md">Dashboard</p>
             </md-list-item>
 
-            <md-list-item to="/notifications" class="dropdown">
+            <md-list-item to="." class="dropdown">
               <drop-down>
                 <a slot="title" class="dropdown-toggle" data-toggle="dropdown">
                   <i class="material-icons">notifications</i>
@@ -44,6 +44,10 @@
               <i class="material-icons">person</i>
               <p class="hidden-lg hidden-md">Profile</p>
             </md-list-item>
+            <md-list-item @click="logout">
+              <i class="material-icons">cancel</i>
+              <p class="hidden-lg hidden-md">Logout</p>
+            </md-list-item>
           </md-list>
         </div>
       </div>
@@ -53,6 +57,8 @@
 </template>
 
 <script>
+
+import firebase from 'firebase'
 
 export default{
   data () {
@@ -73,6 +79,11 @@ export default{
   methods: {
     toggleSidebar () {
       this.$sidebar.displaySidebar(!this.$sidebar.showSidebar)
+    },
+    logout() {
+      firebase.auth().signOut().then(() => {
+        this.$router.replace('Login')
+      })
     }
   }
 }
