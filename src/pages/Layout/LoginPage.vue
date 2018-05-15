@@ -1,11 +1,36 @@
 <template>
-  <div class="login">
-    <h3>Sign In</h3>
-    <input type="text" v-model="email" placeholder="Email"><br>
-    <input type="password" v-model="password" placeholder="Password"><br>
-    <button v-on:click="signIn">Connection</button>
-    <p>You don't have an account ? You can <router-link to="/sign-up">create one</router-link></p>
-  </div>
+<div class='login-wrapper'>
+    <md-card class="login-card">
+      <md-card-header :data-background-color="'red'">
+        <h4 class="title">Sign in into your account</h4>
+        <p class="category">Kucina Dashboard</p>
+      </md-card-header>
+
+      <md-card-content>
+        <div class="md-layout">
+          <div class="md-layout-item md-small-size-100 md-size-100">
+            <md-field>
+              <label>Email</label>
+              <md-input type="email" v-model="email" placeholder="Email"></md-input>
+            </md-field>
+          </div>
+          <div class="md-layout-item md-small-size-100 md-size-100">
+            <md-field>
+              <label>Password</label>
+              <md-input type="password" v-model="password" placeholder="Password"></md-input>
+            </md-field>
+          </div>
+          <div class="md-layout-item md-small-size-100 md-size-100">
+            <p>You don't have an account ? You can <router-link to="/register">create one</router-link></p>
+          </div>
+          <div class="md-layout-item md-size-100 text-right">
+            <md-button class="md-raised md-success" v-on:click="signIn">Login</md-button>
+          </div>
+        </div>
+
+      </md-card-content>
+    </md-card>
+</div>
 </template>
 
 <script>
@@ -55,5 +80,21 @@
   p a {
     text-decoration: underline;
     cursor: pointer;
+  }
+  .login-wrapper {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    padding-top: 200px;
+  }
+
+  .login-card {
+    order: 0;
+    width: 600px;
+    flex: 0 1 auto;
+    align-self: auto;
   }
 </style>
