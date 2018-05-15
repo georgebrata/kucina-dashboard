@@ -8,29 +8,25 @@
         <md-icon>dashboard</md-icon>
         <p>Dashboard</p>
       </sidebar-link>
-      <sidebar-link to="/user">
-        <md-icon>person</md-icon>
-        <p>User Profile</p>
+      <sidebar-link to="/dishes">
+        <md-icon>fastfood</md-icon>
+        <p>Mancare</p>
       </sidebar-link>
-      <sidebar-link to="/table">
-        <md-icon>content_paste</md-icon>
-        <p>Table list</p>
+      <sidebar-link to="/menu">
+        <md-icon>restaurant</md-icon>
+        <p>Meniuri</p>
       </sidebar-link>
-      <sidebar-link to="/typography">
-        <md-icon>library_books</md-icon>
-        <p>Typography</p>
+      <sidebar-link to="/drink">
+        <md-icon>local_bar</md-icon>
+        <p>Racoritoare</p>
       </sidebar-link>
-      <sidebar-link to="/icons">
-        <md-icon>bubble_chart</md-icon>
-        <p>Icons</p>
+      <sidebar-link to="/orders">
+        <md-icon>place</md-icon>
+        <p>Comenzi</p>
       </sidebar-link>
-      <sidebar-link to="/maps">
-        <md-icon>location_on</md-icon>
-        <p>Maps</p>
-      </sidebar-link>
-      <sidebar-link to="/notifications">
-        <md-icon>notifications</md-icon>
-        <p>Notifications</p>
+      <sidebar-link to="/settings">
+        <md-icon>settings</md-icon>
+        <p>Setari</p>
       </sidebar-link>
     </side-bar>
 
@@ -40,8 +36,6 @@
       <dashboard-content>
 
       </dashboard-content>
-
-      <content-footer v-if="!$route.meta.hideFooter"></content-footer>
     </div>
   </div>
 </template>

@@ -40,8 +40,8 @@
     name: 'LoginPage',
     data: function() {
       return {
-        email: '',
-        password: ''
+        email: 'sami@sami.sami',
+        password: 'samisami'
       }
     },
     methods: {

@@ -205,7 +205,6 @@
         }
 
         .simple-text{
-            text-transform: uppercase;
             padding: $padding-small-vertical $padding-zero;
             display: block;
             font-size: $font-size-large;
@@ -223,14 +222,12 @@
               width: 40px;
               display: inline-block;
               height: 40px;
-              background: $white-color;
               border-radius: 50%;
               text-align: center;
               overflow: hidden;
               @include shadow-big();
 
                 img{
-                  width: 55%;
                   vertical-align: -webkit-baseline-middle;
                 }
             }
