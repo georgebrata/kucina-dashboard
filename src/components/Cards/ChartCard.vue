@@ -1,44 +1,62 @@
 <template>
-  <md-card>
-    <md-card-header class="card-chart" :data-background-color="dataBackgroundColor">
+  <card>
+    <template slot="header">
+      <h4 v-if="$slots.title || title" class="card-title">
+        <slot name="title">
+          {{title}}
+        </slot>
+      </h4>
+      <p class="card-category">
+        <slot name="subTitle">
+          {{subTitle}}
+        </slot>
+      </p>
+    </template>
+    <div>
       <div :id="chartId" class="ct-chart"></div>
-    </md-card-header>
+      <div class="footer">
+        <div class="chart-legend">
+          <slot name="legend"></slot>
+        </div>
+        <hr>
+        <div class="stats">
+          <slot name="footer"></slot>
+        </div>
+        <div class="pull-right">
+        </div>
+      </div>
+    </div>
 
-    <md-card-content>
-      <slot name="content"></slot>
-    </md-card-content>
-
-    <md-card-actions md-alignment="left">
-      <slot name="footer"></slot>
-    </md-card-actions>
-  </md-card>
+  </card>
 </template>
 <script>
+import Card from "./Card.vue";
 export default {
-  name: 'chart-card',
+  name: "chart-card",
+  components: {
+    Card
+  },
   props: {
     footerText: {
       type: String,
-      default: ''
+      default: ""
     },
-    headerTitle: {
+    title: {
       type: String,
-      default: 'Chart title'
+      default: ""
+    },
+    subTitle: {
+      type: String,
+      default: ""
     },
     chartType: {
       type: String,
-      default: 'Line' // Line | Pie | Bar
+      default: "Line" // Line | Pie | Bar
     },
     chartOptions: {
       type: Object,
       default: () => {
-        return {}
-      }
-    },
-    chartResponsiveOptions: {
-      type: Array,
-      default: () => {
-        return []
+        return {};
       }
     },
     chartData: {
@@ -47,42 +65,49 @@ export default {
         return {
           labels: [],
           series: []
-        }
+        };
       }
-    },
-    dataBackgroundColor: {
-      type: String,
-      default: ''
     }
   },
-  data () {
+  data() {
     return {
-      chartId: 'no-id'
-    }
+      chartId: "no-id"
+    };
   },
   methods: {
     /***
      * Initializes the chart by merging the chart options sent via props and the default chart options
      */
-    initChart () {
-      var chartIdQuery = `#${this.chartId}`
-      this.$Chartist[this.chartType](chartIdQuery, this.chartData, this.chartOptions)
+    initChart(Chartist) {
+      const chartIdQuery = `#${this.chartId}`;
+      Chartist[this.chartType](
+        chartIdQuery,
+        this.chartData,
+        this.chartOptions
+      );
     },
     /***
      * Assigns a random id to the chart
      */
-    updateChartId () {
-      var currentTime = new Date().getTime().toString()
-      var randomInt = this.getRandomInt(0, currentTime)
-      this.chartId = `div_${randomInt}`
+    updateChartId() {
+      const currentTime = new Date().getTime().toString();
+      const randomInt = this.getRandomInt(0, currentTime);
+      this.chartId = `div_${randomInt}`;
     },
-    getRandomInt (min, max) {
-      return Math.floor(Math.random() * (max - min + 1)) + min
+    getRandomInt(min, max) {
+      return Math.floor(Math.random() * (max - min + 1)) + min;
     }
   },
-  mounted () {
-    this.updateChartId()
-    this.$nextTick(this.initChart)
+  mounted() {
+    this.updateChartId();
+    import('chartist').then((Chartist) => {
+      let ChartistLib = Chartist.default || Chartist ;
+      this.$nextTick(() => {
+        this.initChart(ChartistLib);
+      });
+    });
   }
-}
+};
 </script>
+<style>
+</style>

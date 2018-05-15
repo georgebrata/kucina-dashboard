@@ -1,35 +1,49 @@
 <template>
-  <div class="dropdown" :class="{open:isOpen}" @click="toggleDropDown" v-click-outside="closeDropDown">
+  <component :is="tag"
+             class="dropdown"
+             :class="{show:isOpen}"
+             @click="toggleDropDown"
+             v-click-outside="closeDropDown">
+    <a class="dropdown-toggle btn-rotate"
+       :class="titleClasses"
+       data-toggle="dropdown">
       <slot name="title">
-        <a class="dropdown-toggle" data-toggle="dropdown" href="javascript:void(0)">
-          <i :class="icon"></i>
-          <p class="notification">{{title}}
-            <b class="caret"></b>
-          </p>
-        </a>
+        <i :class="icon"></i>
+        <span class="notification">{{title}}
+          <b class="caret"></b>
+        </span>
       </slot>
-    <slot></slot>
-  </div>
+    </a>
+    <ul class="dropdown-menu" :class="{show:isOpen}">
+      <slot></slot>
+    </ul>
+  </component>
 </template>
 <script>
-export default{
-  name: 'drop-down',
+export default {
   props: {
+    tag: {
+      type: String,
+      default: "li"
+    },
     title: String,
-    icon: String
+    icon: String,
+    titleClasses: [String, Object, Array]
   },
-  data () {
+  data() {
     return {
       isOpen: false
-    }
+    };
   },
   methods: {
-    toggleDropDown () {
-      this.isOpen = !this.isOpen
+    toggleDropDown() {
+      this.isOpen = !this.isOpen;
+      this.$emit("change", this.isOpen);
     },
-    closeDropDown () {
-      this.isOpen = false
+    closeDropDown() {
+      this.isOpen = false;
+      this.$emit('change', false);
     }
   }
-}
+};
 </script>

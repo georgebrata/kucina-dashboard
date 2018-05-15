@@ -1,35 +1,70 @@
 <template>
-  <md-card class="md-card-profile">
-    <div class="md-card-avatar">
-       <img class="img" :src="cardUserImage">
+  <card class="card-user">
+    <div slot="image">
+      <img src="@/assets/img/background.jpg" alt="...">
     </div>
-
-    <md-card-content>
-      <h6 class="category text-gray">CEO / Co-Founder</h6>
-      <h4 class="card-title">Alec Thompson</h4>
-      <p class="card-description">
-          Don't be scared of the truth because we need to restart the human foundation in truth And I love you like Kanye loves Kanye I love Rick Owens’ bed design but the back is...
+    <div>
+      <div class="author">
+        <img class="avatar border-white" src="@/assets/img/faces/face-2.jpg" alt="...">
+        <h4 class="title">Chet Faker
+          <br>
+          <a href="#">
+            <small>@chetfaker</small>
+          </a>
+        </h4>
+      </div>
+      <p class="description text-center">
+        "I like the way you work it
+        <br> No diggity
+        <br> I wanna bag it up"
       </p>
-      <md-button class="md-round md-success">Follow</md-button>
-    </md-card-content>
-  </md-card>
+    </div>
+    <hr>
+    <div class="text-center">
+      <div class="row">
+        <div v-for="(info, index) in details" :key="index" :class="getClasses(index)">
+          <h5>{{info.title}}
+            <br>
+            <small>{{info.subTitle}}</small>
+          </h5>
+        </div>
+      </div>
+    </div>
+  </card>
 </template>
 <script>
 export default {
-  name: 'user-card',
-  props: {
-    cardUserImage: {
-      type: String,
-      default: require('@/assets/img/faces/marc.jpg')
-    }
-  },
-  data () {
+  data() {
     return {
+      details: [
+        {
+          title: "12",
+          subTitle: "Files"
+        },
+        {
+          title: "2GB",
+          subTitle: "Used"
+        },
+        {
+          title: "24,6$",
+          subTitle: "Spent"
+        }
+      ]
+    };
+  },
+  methods: {
+    getClasses(index) {
+      var remainder = index % 3;
+      if (remainder === 0) {
+        return "col-lg-3 offset-lg-1";
+      } else if (remainder === 2) {
+        return "col-lg-4";
+      } else {
+        return "col-lg-3";
+      }
     }
   }
-}
-
+};
 </script>
 <style>
-
 </style>

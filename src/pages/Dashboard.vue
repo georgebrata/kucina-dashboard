@@ -1,279 +1,196 @@
 <template>
-  <div class="content">
-    <div class="md-layout">
-      <div class="md-layout-item md-medium-size-100 md-xsmall-size-100 md-size-33">
-        <chart-card
-          :chart-data="dailySalesChart.data"
-          :chart-options="dailySalesChart.options"
-          :chart-type="'Line'"
-          data-background-color="blue">
-          <template slot="content">
-            <h4 class="title">Daily Sales</h4>
-              <p class="category">
-                <span class="text-success"><i class="fas fa-long-arrow-alt-up"></i> 55% </span> increase in today sales.
-              </p>
-          </template>
+  <div>
 
-          <template slot="footer">
-            <div class="stats">
-              <md-icon>access_time</md-icon>
-              updated 4 minutes ago
-            </div>
-          </template>
-        </chart-card>
-      </div>
-      <div class="md-layout-item md-medium-size-100 md-xsmall-size-100 md-size-33">
-        <chart-card
-          :chart-data="emailsSubscriptionChart.data"
-          :chart-options="emailsSubscriptionChart.options"
-          :chart-responsive-options="emailsSubscriptionChart.responsiveOptions"
-          :chart-type="'Bar'"
-          data-background-color="red">
-          <template slot="content">
-            <h4 class="title">Email Subscription</h4>
-              <p class="category">
-                Last Campaign Performance
-              </p>
-          </template>
-
-          <template slot="footer">
-            <div class="stats">
-              <md-icon>access_time</md-icon>
-              updated 10 days ago
-            </div>
-          </template>
-        </chart-card>
-      </div>
-      <div class="md-layout-item md-medium-size-100 md-xsmall-size-100 md-size-33">
-        <chart-card
-          :chart-data="dataCompletedTasksChart.data"
-          :chart-options="dataCompletedTasksChart.options"
-          :chart-type="'Line'"
-          data-background-color="green">
-          <template slot="content">
-            <h4 class="title">Completed Tasks</h4>
-              <p class="category">
-                Last Campaign Performance
-              </p>
-          </template>
-
-          <template slot="footer">
-            <div class="stats">
-              <md-icon>access_time</md-icon>
-              campaign sent 26 minutes ago
-            </div>
-          </template>
-        </chart-card>
-      </div>
-      <div class="md-layout-item md-medium-size-50 md-xsmall-size-100 md-size-25">
-        <stats-card data-background-color="green">
-          <template slot="header">
-            <md-icon >store</md-icon>
-          </template>
-
-          <template slot="content">
-            <p class="category">Revenue</p>
-            <h3 class="title">$34,245</h3>
-          </template>
-
-          <template slot="footer">
-            <div class="stats">
-                <md-icon>date_range</md-icon>
-                Last 24 Hours
-            </div>
-          </template>
+    <!--Stats cards-->
+    <div class="row">
+      <div class="col-md-6 col-xl-3" v-for="stats in statsCards" :key="stats.title">
+        <stats-card>
+          <div class="icon-big text-center" :class="`icon-${stats.type}`" slot="header">
+            <i :class="stats.icon"></i>
+          </div>
+          <div class="numbers" slot="content">
+            <p>{{stats.title}}</p>
+            {{stats.value}}
+          </div>
+          <div class="stats" slot="footer">
+            <i :class="stats.footerIcon"></i> {{stats.footerText}}
+          </div>
         </stats-card>
-      </div>
-      <div class="md-layout-item md-medium-size-50 md-xsmall-size-100 md-size-25">
-        <stats-card data-background-color="orange">
-          <template slot="header">
-            <md-icon >content_copy</md-icon>
-          </template>
-
-          <template slot="content">
-            <p class="category">Used Space</p>
-            <h3 class="title">49/50
-                <small>GB</small>
-            </h3>
-          </template>
-
-          <template slot="footer">
-            <div class="stats">
-              <md-icon class="text-danger">warning</md-icon>
-              <a href="#pablo">Get More Space...</a>
-            </div>
-          </template>
-        </stats-card>
-      </div>
-      <div class="md-layout-item md-medium-size-50 md-xsmall-size-100 md-size-25">
-        <stats-card data-background-color="red">
-          <template  slot="header">
-            <md-icon >info_outline</md-icon>
-          </template>
-
-          <template slot="content">
-            <p class="category">Fixed Issues</p>
-            <h3 class="title">75</h3>
-          </template>
-
-          <template slot="footer">
-            <div class="stats">
-               <md-icon>local_offer</md-icon>
-               Tracked from Github
-            </div>
-          </template>
-        </stats-card>
-      </div>
-      <div class="md-layout-item md-medium-size-50 md-xsmall-size-100 md-size-25">
-        <stats-card data-background-color="blue">
-          <template  slot="header">
-            <i class="fab fa-twitter"></i>
-          </template>
-
-          <template slot="content">
-            <p class="category">Folowers</p>
-            <h3 class="title">+245</h3>
-          </template>
-
-          <template slot="footer">
-            <div class="stats">
-               <md-icon>update</md-icon>
-               Just Updated
-            </div>
-          </template>
-        </stats-card>
-      </div>
-      <div class="md-layout-item md-medium-size-100 md-xsmall-size-100 md-size-50">
-        <md-card>
-          <md-card-header data-background-color="orange">
-            <h4 class="title">Employees Stats</h4>
-            <p class="category">New employees on 15th September, 2016</p>
-          </md-card-header>
-          <md-card-content>
-            <ordered-table table-header-color="orange"></ordered-table>
-          </md-card-content>
-        </md-card>
-      </div>
-      <div class="md-layout-item md-medium-size-100 md-xsmall-size-100 md-size-50">
-        <nav-tabs-card>
-          <template slot="content">
-            <span class="md-nav-tabs-title">Tasks:</span>
-            <md-tabs md-sync-route class="md-success" md-alignment="left">
-
-              <md-tab id="tab-home" md-label="Bugs" md-icon="bug_report">
-                <nav-tabs-table></nav-tabs-table>
-              </md-tab>
-
-              <md-tab id="tab-pages" md-label="Website" md-icon="code">
-                <nav-tabs-table></nav-tabs-table>
-              </md-tab>
-
-              <md-tab id="tab-posts" md-label="server" md-icon="cloud">
-                <nav-tabs-table></nav-tabs-table>
-              </md-tab>
-            </md-tabs>
-          </template>
-        </nav-tabs-card>
       </div>
     </div>
+
+    <!--Charts-->
+    <div class="row">
+
+      <div class="col-12">
+        <chart-card title="Users behavior"
+                    sub-title="24 Hours performance"
+                    :chart-data="usersChart.data"
+                    :chart-options="usersChart.options">
+          <span slot="footer">
+            <i class="ti-reload"></i> Updated 3 minutes ago
+          </span>
+          <div slot="legend">
+            <i class="fa fa-circle text-info"></i> Open
+            <i class="fa fa-circle text-danger"></i> Click
+            <i class="fa fa-circle text-warning"></i> Click Second Time
+          </div>
+        </chart-card>
+      </div>
+
+      <div class="col-md-6 col-12">
+        <chart-card title="Email Statistics"
+                    sub-title="Last campaign performance"
+                    :chart-data="preferencesChart.data"
+                    chart-type="Pie">
+          <span slot="footer">
+            <i class="ti-timer"></i> Campaign set 2 days ago</span>
+          <div slot="legend">
+            <i class="fa fa-circle text-info"></i> Open
+            <i class="fa fa-circle text-danger"></i> Bounce
+            <i class="fa fa-circle text-warning"></i> Unsubscribe
+          </div>
+        </chart-card>
+      </div>
+
+      <div class="col-md-6 col-12">
+        <chart-card title="2015 Sales"
+                    sub-title="All products including Taxes"
+                    :chart-data="activityChart.data"
+                    :chart-options="activityChart.options">
+          <span slot="footer">
+            <i class="ti-check"></i> Data information certified
+          </span>
+          <div slot="legend">
+            <i class="fa fa-circle text-info"></i> Tesla Model S
+            <i class="fa fa-circle text-warning"></i> BMW 5 Series
+          </div>
+        </chart-card>
+      </div>
+
+    </div>
+
   </div>
 </template>
-
 <script>
-import {
-  StatsCard,
-  ChartCard,
-  NavTabsCard,
-  NavTabsTable,
-  OrderedTable
-} from '@/components'
-
-export default{
+import { StatsCard, ChartCard } from "@/components/index";
+import Chartist from 'chartist';
+export default {
   components: {
     StatsCard,
-    ChartCard,
-    NavTabsCard,
-    NavTabsTable,
-    OrderedTable
+    ChartCard
   },
-  data () {
+  /**
+   * Chart data used to render stats, charts. Should be replaced with server data
+   */
+  data() {
     return {
-      dailySalesChart: {
-        data: {
-          labels: ['M', 'T', 'W', 'T', 'F', 'S', 'S'],
-          series: [
-            [12, 17, 7, 17, 23, 18, 38]
-          ]
+      statsCards: [
+        {
+          type: "warning",
+          icon: "ti-server",
+          title: "Capacity",
+          value: "105GB",
+          footerText: "Updated now",
+          footerIcon: "ti-reload"
         },
-        options: {
-          lineSmooth: this.$Chartist.Interpolation.cardinal({
-            tension: 0
-          }),
-          low: 0,
-          high: 50, // creative tim: we recommend you to set the high sa the biggest value + something for a better look
-          chartPadding: {
-            top: 0,
-            right: 0,
-            bottom: 0,
-            left: 0
-          }
+        {
+          type: "success",
+          icon: "ti-wallet",
+          title: "Revenue",
+          value: "$1,345",
+          footerText: "Last day",
+          footerIcon: "ti-calendar"
+        },
+        {
+          type: "danger",
+          icon: "ti-pulse",
+          title: "Errors",
+          value: "23",
+          footerText: "In the last hour",
+          footerIcon: "ti-timer"
+        },
+        {
+          type: "info",
+          icon: "ti-twitter-alt",
+          title: "Followers",
+          value: "+45",
+          footerText: "Updated now",
+          footerIcon: "ti-reload"
         }
-      },
-      dataCompletedTasksChart: {
+      ],
+      usersChart: {
         data: {
-          labels: ['12am', '3pm', '6pm', '9pm', '12pm', '3am', '6am', '9am'],
+          labels: [
+            "9:00AM",
+            "12:00AM",
+            "3:00PM",
+            "6:00PM",
+            "9:00PM",
+            "12:00PM",
+            "3:00AM",
+            "6:00AM"
+          ],
           series: [
-            [230, 750, 450, 300, 280, 240, 200, 190]
+            [287, 385, 490, 562, 594, 626, 698, 895, 952],
+            [67, 152, 193, 240, 387, 435, 535, 642, 744],
+            [23, 113, 67, 108, 190, 239, 307, 410, 410]
           ]
         },
-
         options: {
-          lineSmooth: this.$Chartist.Interpolation.cardinal({
-            tension: 0
-          }),
           low: 0,
-          high: 1000, // creative tim: we recommend you to set the high sa the biggest value + something for a better look
-          chartPadding: {
-            top: 0,
-            right: 0,
-            bottom: 0,
-            left: 0
-          }
-        }
-      },
-      emailsSubscriptionChart: {
-        data: {
-          labels: ['Ja', 'Fe', 'Ma', 'Ap', 'Mai', 'Ju', 'Jul', 'Au', 'Se', 'Oc', 'No', 'De'],
-          series: [
-            [542, 443, 320, 780, 553, 453, 326, 434, 568, 610, 756, 895]
-
-          ]
-        },
-        options: {
+          high: 1000,
+          showArea: true,
+          height: "245px",
           axisX: {
             showGrid: false
           },
-          low: 0,
-          high: 1000,
-          chartPadding: {
-            top: 0,
-            right: 5,
-            bottom: 0,
-            left: 0
-          }
+          lineSmooth: Chartist.Interpolation.simple({
+            divisor: 3
+          }),
+          showLine: true,
+          showPoint: false
+        }
+      },
+      activityChart: {
+        data: {
+          labels: [
+            "Jan",
+            "Feb",
+            "Mar",
+            "Apr",
+            "Mai",
+            "Jun",
+            "Jul",
+            "Aug",
+            "Sep",
+            "Oct",
+            "Nov",
+            "Dec"
+          ],
+          series: [
+            [542, 543, 520, 680, 653, 753, 326, 434, 568, 610, 756, 895],
+            [230, 293, 380, 480, 503, 553, 600, 664, 698, 710, 736, 795]
+          ]
         },
-        responsiveOptions: [
-          ['screen and (max-width: 640px)', {
-            seriesBarDistance: 5,
-            axisX: {
-              labelInterpolationFnc: function (value) {
-                return value[0]
-              }
-            }
-          }]
-        ]
+        options: {
+          seriesBarDistance: 10,
+          axisX: {
+            showGrid: false
+          },
+          height: "245px"
+        }
+      },
+      preferencesChart: {
+        data: {
+          labels: ["62%", "32%", "6%"],
+          series: [62, 32, 6]
+        },
+        options: {}
       }
-    }
+    };
   }
-}
+};
 </script>
+<style>
+</style>
